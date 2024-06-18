@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Step 1. Download prerequsitions. # CrDroid-8.7-kebab-ROM
+payload-dumper-go
+Nethunter-crdroid-overlay
+Nethunter-crdroid-kernel
+Magisk
+TWRP-recovery
+Step 2. Flash crdroid rom # Reboot into fastboot and exec the following command.
+unzip crDroidAndroid-12.1-20220728-kebab-v8.7.zip tar xzvf payload-dumper-go*.tar.gz chmod &#43;x ./payload-dumper-go* ./payload-dumper-go* payload.bin cd extracted_*_* ls -1 *.img | sed s/.img//g | xargs -I {} fastboot flash {} {}.img If you encounter some error, you might need to disable oem lock by
+fastboot oem unlock And if there are errors about not enough disk space left, you should delete some partitions.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/oneplus8t-crdroid-nethuner/">
+  <meta property="og:site_name" content="OrganGrinderrr">
+  <meta property="og:title" content="Install Nethunter on Oneplus 8T">
+  <meta property="og:description" content="Step 1. Download prerequsitions. # CrDroid-8.7-kebab-ROM
+payload-dumper-go
+Nethunter-crdroid-overlay
+Nethunter-crdroid-kernel
+Magisk
+TWRP-recovery
+Step 2. Flash crdroid rom # Reboot into fastboot and exec the following command.
+unzip crDroidAndroid-12.1-20220728-kebab-v8.7.zip tar xzvf payload-dumper-go*.tar.gz chmod &#43;x ./payload-dumper-go* ./payload-dumper-go* payload.bin cd extracted_*_* ls -1 *.img | sed s/.img//g | xargs -I {} fastboot flash {} {}.img If you encounter some error, you might need to disable oem lock by
+fastboot oem unlock And if there are errors about not enough disk space left, you should delete some partitions.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-06-17T00:00:00+00:00">
+    <meta property="article:tag" content="Kali">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Android">
+    <meta property="article:tag" content="Hacking">
+<title>Install Nethunter on Oneplus 8T | OrganGrinderrr</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/posts/oneplus8t-crdroid-nethuner/">
+<link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
+  
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>OrganGrinderrr</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/about/" class="">About</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Install Nethunter on Oneplus 8T</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#step-1-download-prerequsitions">Step 1. Download prerequsitions.</a></li>
+    <li><a href="#step-2-flash-crdroid-rom">Step 2. Flash crdroid rom</a></li>
+    <li><a href="#step-3-install-magisk">Step 3. Install Magisk</a></li>
+    <li><a href="#step-4-install-kali-nethunter">Step 4. Install kali nethunter</a></li>
+    <li><a href="#step-5-have-fun">Step 5. Have fun</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    <a href="/posts/oneplus8t-crdroid-nethuner/">Install Nethunter on Oneplus 8T</a>
+  </h1>
+  
+  <h5>June 17, 2024</h5>
+
+
+
+  
+  <div>
+    
+      <a href="/categories/hacking/">Hacking</a>, 
+      <a href="/categories/android/">Android</a>
+  </div>
+  
+
+  
+  <div>
+    
+      <a href="/tags/kali/">Kali</a>, 
+      <a href="/tags/linux/">Linux</a>, 
+      <a href="/tags/android/">Android</a>, 
+      <a href="/tags/hacking/">Hacking</a>
+  </div>
+  
+
+
+
+<h2 id="step-1-download-prerequsitions">
+  Step 1. Download prerequsitions.
+  <a class="anchor" href="#step-1-download-prerequsitions">#</a>
+</h2>
+<p><a href="https://sourceforge.net/projects/crdroid/files/kebab/8.x/crDroidAndroid-12.1-20220728-kebab-v8.7.zip/download">CrDroid-8.7-kebab-ROM</a></p>
+<p><a href="https://github.com/ssut/payload-dumper-go/releases">payload-dumper-go</a></p>
+<p><a href="https://androidfilehost.com/?fid=14655340768118441189">Nethunter-crdroid-overlay</a></p>
+<p><a href="https://androidfilehost.com/?fid=14655340768118441190">Nethunter-crdroid-kernel</a></p>
+<p><a href="https://github.com/topjohnwu/Magisk/releases">Magisk</a></p>
+<p><a href="https://eu.dl.twrp.me/kebab/">TWRP-recovery</a></p>
+<h2 id="step-2-flash-crdroid-rom">
+  Step 2. Flash crdroid rom
+  <a class="anchor" href="#step-2-flash-crdroid-rom">#</a>
+</h2>
+<p>Reboot into fastboot and exec the following command.</p>
+<pre><code>unzip crDroidAndroid-12.1-20220728-kebab-v8.7.zip
+tar xzvf payload-dumper-go*.tar.gz
+chmod +x ./payload-dumper-go*
+./payload-dumper-go* payload.bin
+cd extracted_*_*
+ls -1 *.img | sed s/.img//g | xargs -I {} fastboot flash {} {}.img
+</code></pre>
+<p>If you encounter some error, you might need to disable oem lock by</p>
+<pre><code>fastboot oem unlock
+</code></pre>
+<p>And if there are errors about not enough disk space left, you should delete some partitions.</p>
+<pre><code>fastboot delete-logical-partition .*-cow
+</code></pre>
+<p>Remove the partitions end with cow or start with my. Then you can proceed with fastboot flash again.</p>
+<p>All done, reboot into system and setup the OS.</p>
+<h2 id="step-3-install-magisk">
+  Step 3. Install Magisk
+  <a class="anchor" href="#step-3-install-magisk">#</a>
+</h2>
+<ul>
+<li>reboot into fastboot and flash TWRP</li>
+<li>fastboot reboot into recovery and select update from adb</li>
+<li>adb sideload Magisk.apk</li>
+<li>reboot into system to setup Magisk (it might require you to reboot multiple times)</li>
+</ul>
+<h2 id="step-4-install-kali-nethunter">
+  Step 4. Install kali nethunter
+  <a class="anchor" href="#step-4-install-kali-nethunter">#</a>
+</h2>
+<ul>
+<li>adb push overlay and kernel to /sdcard/</li>
+<li>open Magisk to install Nethunter-crdroid-overlay wait until it finish</li>
+<li>reboot into system again and update apps through nethunter f-droid</li>
+<li>open nethunter app -&gt; install kernel -&gt; select Nethunter-crdroid-kernel</li>
+<li>after install, reboot into system again.</li>
+</ul>
+<h2 id="step-5-have-fun">
+  Step 5. Have fun
+  <a class="anchor" href="#step-5-have-fun">#</a>
+</h2>
+<p>Now you can put the internal wifi interface into monitor mode. But nothing more than that.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#step-1-download-prerequsitions">Step 1. Download prerequsitions.</a></li>
+    <li><a href="#step-2-flash-crdroid-rom">Step 2. Flash crdroid rom</a></li>
+    <li><a href="#step-3-install-magisk">Step 3. Install Magisk</a></li>
+    <li><a href="#step-4-install-kali-nethunter">Step 4. Install kali nethunter</a></li>
+    <li><a href="#step-5-have-fun">Step 5. Have fun</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
