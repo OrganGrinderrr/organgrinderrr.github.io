@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Yapping on OrganGrinderrr</title>
+    <link>http://localhost:1313/tags/yapping/</link>
+    <description>Recent content in Yapping on OrganGrinderrr</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/yapping/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Privacy Guide</title>
+      <link>http://localhost:1313/posts/absurdity/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/absurdity/</guid>
+      <description>MITM attack # Personally I don&amp;rsquo;t quite understand why it&amp;rsquo;s called man in the middle attack at the first place. Because the two parties are literally directly trusting data from the line. You put your data on the line for everyone to view and trust every data on the line. While you are saying this is an attack. In my opinion this is not an attack but rather helping you.</description>
+    </item>
+  </channel>
+</rss>

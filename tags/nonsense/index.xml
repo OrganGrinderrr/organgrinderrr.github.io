@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nonsense on OrganGrinderrr</title>
+    <link>http://localhost:1313/tags/nonsense/</link>
+    <description>Recent content in Nonsense on OrganGrinderrr</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/nonsense/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What I believe</title>
+      <link>http://localhost:1313/posts/nonsense/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/nonsense/</guid>
+      <description>I believe we are here to serve a single purpose. That is, to spread informations. Help with transmission of information. Nothing more than that.</description>
+    </item>
+  </channel>
+</rss>

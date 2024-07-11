@@ -2,38 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on OrganGrinderrr</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://example.org/tags/</link>
     <description>Recent content in Tags on OrganGrinderrr</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 17 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Android</title>
-      <link>http://localhost:1313/tags/android/</link>
+      <title>Fiction</title>
+      <link>https://example.org/tags/fiction/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/android/</guid>
+      <guid>https://example.org/tags/fiction/</guid>
       <description></description>
     </item>
     <item>
-      <title>Hacking</title>
-      <link>http://localhost:1313/tags/hacking/</link>
+      <title>Hacker</title>
+      <link>https://example.org/tags/hacker/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/hacking/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Kali</title>
-      <link>http://localhost:1313/tags/kali/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/kali/</guid>
+      <guid>https://example.org/tags/hacker/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>http://localhost:1313/tags/linux/</link>
+      <link>https://example.org/tags/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/linux/</guid>
+      <guid>https://example.org/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Opsec</title>
+      <link>https://example.org/tags/opsec/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/opsec/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Privacy</title>
+      <link>https://example.org/tags/privacy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/privacy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Android</title>
+      <link>https://example.org/tags/android/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/android/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hacking</title>
+      <link>https://example.org/tags/hacking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/hacking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kali</title>
+      <link>https://example.org/tags/kali/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/kali/</guid>
       <description></description>
     </item>
   </channel>

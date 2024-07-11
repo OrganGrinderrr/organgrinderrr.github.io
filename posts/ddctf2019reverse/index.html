@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Confused # 定位关键逻辑 # 首先分析到这个sub_1000011D0是关键函数是没有什么问题的，直接shift&#43;f12定位DDCTF的字符串就到了这一部分逻辑
+if ( (unsigned int)sub_1000011D0(*((__int64 *)&amp;v14 &#43; 1)) == 1 ) objc_msgSend(v17, &#34;onSuccess&#34;); else objc_msgSend(v17, &#34;onFailed&#34;); 简要分析确定是虚拟机 # 跟进去以后发现
+__int64 __fastcall sub_1000011D0(__int64 a1) { char v2; // [rsp&#43;20h] [rbp-C0h] __int64 v3; // [rsp&#43;D8h] [rbp-8h] v3 = a1; memset(&amp;v2, 0, 0xB8uLL); sub_100001F60(&amp;v2, a1); return (unsigned int)sub_100001F00(&amp;v2); } 这个函数首先分配了一个0xb8大小的空间，然后填充为0x00，然后把这个v2传入了一个sub_100001F60函数 跟进去
+__int64 __fastcall sub_100001F60(__int64 a1, __int64 a2) { *(_DWORD *)a1 = 0; *(_DWORD *)(a1 &#43; 4) = 0; *(_DWORD *)(a1 &#43; 8) = 0; *(_DWORD *)(a1 &#43; 12) = 0; *(_DWORD *)(a1 &#43; 16) = 0; *(_DWORD *)(a1 &#43; 176) = 0; *(_BYTE *)(a1 &#43; 32) = 0xF0u; *(_QWORD *)(a1 &#43; 40) = sub_100001D70; *(_BYTE *)(a1 &#43; 48) = 0xF1u; *(_QWORD *)(a1 &#43; 56) = sub_100001A60; *(_BYTE *)(a1 &#43; 64) = 0xF2u; *(_QWORD *)(a1 &#43; 72) = sub_100001AA0; *(_BYTE *)(a1 &#43; 80) = 0xF4u; *(_QWORD *)(a1 &#43; 88) = sub_100001CB0; *(_BYTE *)(a1 &#43; 96) = 0xF5u; *(_QWORD *)(a1 &#43; 104) = sub_100001CF0; *(_BYTE *)(a1 &#43; 112) = 0xF3u; *(_QWORD *)(a1 &#43; 120) = sub_100001B70; *(_BYTE *)(a1 &#43; 128) = 0xF6u; *(_QWORD *)(a1 &#43; 136) = sub_100001B10; *(_BYTE *)(a1 &#43; 144) = 0xF7u; *(_QWORD *)(a1 &#43; 152) = sub_100001D30; *(_BYTE *)(a1 &#43; 160) = 0xF8u; *(_QWORD *)(a1 &#43; 168) = sub_100001C60; qword_100003F58 = malloc(0x400uLL); return __memcpy_chk((char *)qword_100003F58 &#43; 48, a2, 18LL, -1LL); } 首先先按H把-16这些改成unsigned _int8类型，看着方便。 这里在对一个结构体进行初始化，前几个都是DWORD类型，后几个可以看出一定的规律，都是一个BYTE类型的F几和一个函数指针，实际上这里还可以写一个小的结构体，结构体包含F几和函数指针，这是一个绑定操作，将F几与函数绑定。">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/ddctf2019reverse/">
+  <meta property="og:site_name" content="OrganGrinderrr">
+  <meta property="og:title" content="ddctf2019两个逆向题目解析">
+  <meta property="og:description" content="Confused # 定位关键逻辑 # 首先分析到这个sub_1000011D0是关键函数是没有什么问题的，直接shift&#43;f12定位DDCTF的字符串就到了这一部分逻辑
+if ( (unsigned int)sub_1000011D0(*((__int64 *)&amp;v14 &#43; 1)) == 1 ) objc_msgSend(v17, &#34;onSuccess&#34;); else objc_msgSend(v17, &#34;onFailed&#34;); 简要分析确定是虚拟机 # 跟进去以后发现
+__int64 __fastcall sub_1000011D0(__int64 a1) { char v2; // [rsp&#43;20h] [rbp-C0h] __int64 v3; // [rsp&#43;D8h] [rbp-8h] v3 = a1; memset(&amp;v2, 0, 0xB8uLL); sub_100001F60(&amp;v2, a1); return (unsigned int)sub_100001F00(&amp;v2); } 这个函数首先分配了一个0xb8大小的空间，然后填充为0x00，然后把这个v2传入了一个sub_100001F60函数 跟进去
+__int64 __fastcall sub_100001F60(__int64 a1, __int64 a2) { *(_DWORD *)a1 = 0; *(_DWORD *)(a1 &#43; 4) = 0; *(_DWORD *)(a1 &#43; 8) = 0; *(_DWORD *)(a1 &#43; 12) = 0; *(_DWORD *)(a1 &#43; 16) = 0; *(_DWORD *)(a1 &#43; 176) = 0; *(_BYTE *)(a1 &#43; 32) = 0xF0u; *(_QWORD *)(a1 &#43; 40) = sub_100001D70; *(_BYTE *)(a1 &#43; 48) = 0xF1u; *(_QWORD *)(a1 &#43; 56) = sub_100001A60; *(_BYTE *)(a1 &#43; 64) = 0xF2u; *(_QWORD *)(a1 &#43; 72) = sub_100001AA0; *(_BYTE *)(a1 &#43; 80) = 0xF4u; *(_QWORD *)(a1 &#43; 88) = sub_100001CB0; *(_BYTE *)(a1 &#43; 96) = 0xF5u; *(_QWORD *)(a1 &#43; 104) = sub_100001CF0; *(_BYTE *)(a1 &#43; 112) = 0xF3u; *(_QWORD *)(a1 &#43; 120) = sub_100001B70; *(_BYTE *)(a1 &#43; 128) = 0xF6u; *(_QWORD *)(a1 &#43; 136) = sub_100001B10; *(_BYTE *)(a1 &#43; 144) = 0xF7u; *(_QWORD *)(a1 &#43; 152) = sub_100001D30; *(_BYTE *)(a1 &#43; 160) = 0xF8u; *(_QWORD *)(a1 &#43; 168) = sub_100001C60; qword_100003F58 = malloc(0x400uLL); return __memcpy_chk((char *)qword_100003F58 &#43; 48, a2, 18LL, -1LL); } 首先先按H把-16这些改成unsigned _int8类型，看着方便。 这里在对一个结构体进行初始化，前几个都是DWORD类型，后几个可以看出一定的规律，都是一个BYTE类型的F几和一个函数指针，实际上这里还可以写一个小的结构体，结构体包含F几和函数指针，这是一个绑定操作，将F几与函数绑定。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-04-18T21:01:37+00:00">
+    <meta property="article:modified_time" content="2019-04-18T21:01:37+00:00">
+<title>ddctf2019两个逆向题目解析 | OrganGrinderrr</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/posts/ddctf2019reverse/">
+<link rel="stylesheet" href="/book.min.309b7ed028807cdb68d8d61e26d609f48369c098dbf5e4d8c0dcf4cdf49feafc.css" integrity="sha256-MJt&#43;0CiAfNto2NYeJtYJ9INpwJjb9eTYwNz0zfSf6vw=" crossorigin="anonymous">
+  
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>OrganGrinderrr</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/about/" class="">About</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>ddctf2019两个逆向题目解析</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#confused">Confused</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#obfuscating-macros">Obfuscating macros</a></li>
+    <li><a href="#题目附件">题目附件</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    <a href="/posts/ddctf2019reverse/">ddctf2019两个逆向题目解析</a>
+  </h1>
+  
+  <h5>April 18, 2019</h5>
+
+
+
+  
+
+  
+
+
+
+<h2 id="confused">
+  Confused
+  <a class="anchor" href="#confused">#</a>
+</h2>
+<h4 id="定位关键逻辑">
+  定位关键逻辑
+  <a class="anchor" href="#%e5%ae%9a%e4%bd%8d%e5%85%b3%e9%94%ae%e9%80%bb%e8%be%91">#</a>
+</h4>
+<p>首先分析到这个<code>sub_1000011D0</code>是关键函数是没有什么问题的，直接<code>shift+f12</code>定位<code>DDCTF</code>的字符串就到了这一部分逻辑</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ( (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#a6e22e">sub_1000011D0</span>(<span style="color:#f92672">*</span>((<span style="color:#66d9ef">__int64</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v14 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> )
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">objc_msgSend</span>(v17, <span style="color:#e6db74">&#34;onSuccess&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">objc_msgSend</span>(v17, <span style="color:#e6db74">&#34;onFailed&#34;</span>);
+</span></span></code></pre></div><h4 id="简要分析确定是虚拟机">
+  简要分析确定是虚拟机
+  <a class="anchor" href="#%e7%ae%80%e8%a6%81%e5%88%86%e6%9e%90%e7%a1%ae%e5%ae%9a%e6%98%af%e8%99%9a%e6%8b%9f%e6%9c%ba">#</a>
+</h4>
+<p>跟进去以后发现</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_1000011D0</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> v2; <span style="color:#75715e">// [rsp+20h] [rbp-C0h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v3; <span style="color:#75715e">// [rsp+D8h] [rbp-8h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  v3 <span style="color:#f92672">=</span> a1;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">memset</span>(<span style="color:#f92672">&amp;</span>v2, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0xB8uLL</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sub_100001F60</span>(<span style="color:#f92672">&amp;</span>v2, a1);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#a6e22e">sub_100001F00</span>(<span style="color:#f92672">&amp;</span>v2);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这个函数首先分配了一个<code>0xb8</code>大小的空间，然后填充为<code>0x00</code>，然后把这个<code>v2</code>传入了一个<code>sub_100001F60</code>函数
+跟进去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001F60</span>(<span style="color:#66d9ef">__int64</span> a1, <span style="color:#66d9ef">__int64</span> a2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">12</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">16</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">176</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF0u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">40</span>) <span style="color:#f92672">=</span> sub_100001D70;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">48</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF1u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">56</span>) <span style="color:#f92672">=</span> sub_100001A60;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">64</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF2u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">72</span>) <span style="color:#f92672">=</span> sub_100001AA0;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">80</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF4u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">88</span>) <span style="color:#f92672">=</span> sub_100001CB0;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">96</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF5u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">104</span>) <span style="color:#f92672">=</span> sub_100001CF0;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">112</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF3u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">120</span>) <span style="color:#f92672">=</span> sub_100001B70;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">128</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF6u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">136</span>) <span style="color:#f92672">=</span> sub_100001B10;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">144</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF7u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">152</span>) <span style="color:#f92672">=</span> sub_100001D30;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">160</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF8u</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">168</span>) <span style="color:#f92672">=</span> sub_100001C60;
+</span></span><span style="display:flex;"><span>  qword_100003F58 <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#ae81ff">0x400uLL</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">__memcpy_chk</span>((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)qword_100003F58 <span style="color:#f92672">+</span> <span style="color:#ae81ff">48</span>, a2, <span style="color:#ae81ff">18LL</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1LL</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>首先先按<code>H</code>把<code>-16</code>这些改成<code>unsigned _int8</code>类型，看着方便。
+这里在对一个结构体进行初始化，前几个都是<code>DWORD</code>类型，后几个可以看出一定的规律，都是一个<code>BYTE</code>类型的<code>F</code>几和一个函数指针，实际上这里还可以写一个小的结构体，结构体包含<code>F</code>几和函数指针，这是一个绑定操作，将<code>F</code>几与函数绑定。</p>
+<p>返回去查看<code>sub_100001F00</code>函数里调用的第二个函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001F00</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>loc_100001980 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> ( <span style="color:#f92672">**</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">**</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">243</span> )
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sub_100001E50</span>(a1);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">free</span>(qword_100003F58);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">176</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这里把<code>*(_QWORD *)(a1 + 24)</code>指向<code>(char *)&amp;loc_100001980 + 4</code>处，然后调用了<code>sub_100001E50</code>，<code>sub_100001E50</code>里通过<code>(char *)&amp;loc_100001980 + 4</code>处的值来确定调用刚才上一个函数中赋值的哪一个函数指针指向的函数，显然这是一个分发器，<code>*(_QWORD *)(a1 + 24)</code>就是指令指针寄存器，<code>(char *)&amp;loc_100001980 + 4</code>处就是虚拟机字节码。</p>
+<p>这道题就是考的虚拟机。</p>
+<h4 id="handler分析">
+  handler分析
+  <a class="anchor" href="#handler%e5%88%86%e6%9e%90">#</a>
+</h4>
+<p>然后对初始化的结构体和<code>opcode</code>对应的每个函数简要分析</p>
+<h4 id="0xf0">
+  0xF0
+  <a class="anchor" href="#0xf0">#</a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001D70</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>v2; <span style="color:#75715e">// [rsp+Ch] [rbp-18h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  v2 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2LL</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> ( <span style="color:#f92672">*</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1LL</span>) )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0x10u</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>v2;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0x11u</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>v2;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0x12u</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>v2;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0x13u</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">12</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>v2;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0x14u</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)qword_100003F58 <span style="color:#f92672">+</span> <span style="color:#f92672">*</span>v2);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> a1;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+=</span> <span style="color:#ae81ff">6LL</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到<code>v2</code>是虚拟机指令指针寄存器指向的地方后面第二个字节的内容，然后有一个<code>switch</code>结构，是在判断虚拟机指令后面第一个字节指定的是哪个虚拟机寄存器，然后将<code>v2</code>赋值到寄存器里，如果是<code>0x14</code>的话就把<code>*((char *)qword_100003F58 + *v2)</code>赋值给第一个寄存器，猜测这<code>qword_100003F58</code>相当于虚拟机的栈，然后函数负责移动指令指针寄存器，这个函数对应的虚拟机指令占六个字节，所以在最后有<code>*(_QWORD *)(a1 + 24) += 6LL;</code>所以这个函数的功能就是把一个立即数传入虚拟机的一个寄存器中</p>
+<h4 id="0xf1">
+  0xF1
+  <a class="anchor" href="#0xf1">#</a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001A60</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)(<span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">^</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1);
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">=</span> result;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">++*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到他把前两个寄存器里的值进行异或然后又把结果放到了第一个寄存器中，同样的这个虚拟机指令占一个字节，此函数负责将指令指针寄存器加<code>1</code>字节</p>
+<h4 id="0xf2--0xf6">
+  0xF2 &amp; 0xF6
+  <a class="anchor" href="#0xf2--0xf6">#</a>
+</h4>
+<p><code>0xF2</code>对应的函数和<code>0xF6</code>对应的函数要结合来看</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001AA0</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">16</span>) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">==</span> <span style="color:#f92672">*</span>((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)qword_100003F58 <span style="color:#f92672">+</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1LL</span>));
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> a1;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2LL</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001B10</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">16</span>) )
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">16</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1LL</span>);
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> a1;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2LL</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到<code>0xF2</code>中他把一个表达式的结果放到了<code>*(_DWORD *)(a1 + 16)</code>里，<code>0xF6</code>中他又根据<code>*(_DWORD *)(a1 + 16)</code>移动指令指针寄存器，这就很明显了，这个寄存器的功能就是标志寄存器，存放对比的结果，然后后面一个函数就是条件跳转指令了</p>
+<h4 id="0xf4">
+  0xF4
+  <a class="anchor" href="#0xf4">#</a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001CB0</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)(<span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">+</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1);
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">=</span> result;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">++*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>很明显的看出这个实在做加法运算，把前两个寄存器的值加起来放到第一个寄存器里</p>
+<h4 id="0xf5">
+  0xF5
+  <a class="anchor" href="#0xf5">#</a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001CF0</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)(<span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">-</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>));
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">=</span> result;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">++*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>与上面的函数类似，这个是减法</p>
+<h4 id="0xf3">
+  0xF3
+  <a class="anchor" href="#0xf3">#</a>
+</h4>
+<p>跟进<code>0xF3</code>对应的函数发现只有一对花括号，于是取名为<code>nop</code></p>
+<h4 id="0xf7">
+  0xF7
+  <a class="anchor" href="#0xf7">#</a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001D30</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1LL</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">176</span>) <span style="color:#f92672">=</span> result;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>) <span style="color:#f92672">+=</span> <span style="color:#ae81ff">5LL</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到他把操作数放进了<code>(_DWORD *)(a1 + 176)</code>处，先不管他是在干啥，先看<code>0xF8</code></p>
+<h4 id="0xf8">
+  0xF8
+  <a class="anchor" href="#0xf8">#</a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001C60</span>(<span style="color:#66d9ef">__int64</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  result <span style="color:#f92672">=</span> <span style="color:#a6e22e">sub_100001B80</span>((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)(<span style="color:#66d9ef">char</span>)<span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1, <span style="color:#ae81ff">2LL</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)a1 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span>)result;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">++*</span>(_QWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">24</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">sub_100001B80</span>(<span style="color:#66d9ef">char</span> a1, <span style="color:#66d9ef">int</span> a2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">bool</span> v3; <span style="color:#75715e">// [rsp+7h] [rbp-11h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">bool</span> v4; <span style="color:#75715e">// [rsp+Fh] [rbp-9h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v5; <span style="color:#75715e">// [rsp+17h] [rbp-1h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  v4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( a1 <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">65</span> )
+</span></span><span style="display:flex;"><span>    v4 <span style="color:#f92672">=</span> a1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">90</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( v4 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v5 <span style="color:#f92672">=</span> (a2 <span style="color:#f92672">+</span> a1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">65</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">65</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( a1 <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">97</span> )
+</span></span><span style="display:flex;"><span>      v3 <span style="color:#f92672">=</span> a1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">122</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( v3 )
+</span></span><span style="display:flex;"><span>      v5 <span style="color:#f92672">=</span> (a2 <span style="color:#f92672">+</span> a1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">97</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>      v5 <span style="color:#f92672">=</span> a1;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)v5;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到他调用了下级函数<code>sub_100001B80</code>，显然这个<code>sub_100001B80</code>函数是在对第一个虚拟机寄存器中的内容进行移位为<code>2</code>的凯撒移位，首先他通过<code>ascii</code>码的范围判断是大写还是小写，以确保大小写字母都能够通用</p>
+<h4 id="题解">
+  题解
+  <a class="anchor" href="#%e9%a2%98%e8%a7%a3">#</a>
+</h4>
+<p>分析完了这几个函数和几个寄存器以后，可以创建一个<code>vm_cpu</code>结构体给函数和寄存器都取个名字，然后把第一个函数初始化的结构体用模板解析，看起来比较清晰。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">init_vm</span>(vm_cpu <span style="color:#f92672">*</span>a1, <span style="color:#66d9ef">__int64</span> a2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>vm_r1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>vm_r2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>vm_r3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>vm_r4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>myeip <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f0) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF0u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>mov_reg_imm <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)mov_reg_imm;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f1) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF1u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>xor_r1_r2 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)xor_r1_r2;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f2) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF2u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>cmp_r1_imm <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)cmp_r1_imm;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f4) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF4u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>add_r1_r2 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)add_r1_r2;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f5) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF5u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>dec_r1_r2 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)sub_r1_r2;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f3) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF3u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>nop <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)nop;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f6) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF6u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>jz_imm <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)jz_imm;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f7) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF7u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>mov_buff_imm <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)mov_buff_imm;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">LOBYTE</span>(a1<span style="color:#f92672">-&gt;</span>opcode_f8) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xF8u</span>;
+</span></span><span style="display:flex;"><span>  a1<span style="color:#f92672">-&gt;</span>shift_r1_2 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">__int64</span>)shift_r1_2;
+</span></span><span style="display:flex;"><span>  qword_100003F58 <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#ae81ff">0x400uLL</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">__memcpy_chk</span>((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)qword_100003F58 <span style="color:#f92672">+</span> <span style="color:#ae81ff">48</span>, a2, <span style="color:#ae81ff">18LL</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1LL</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="idapython一句话解题">
+  idapython一句话解题
+  <a class="anchor" href="#idapython%e4%b8%80%e5%8f%a5%e8%af%9d%e8%a7%a3%e9%a2%98">#</a>
+</h4>
+<p>这里既然我们已经了解了这些<code>opcode</code>的功能，其实并不需要费力去提取出代码执行或者写脚本一句一句翻译了
+他就是把一个立即数装入第一个寄存器中，然后判断大小写，对其进行凯撒移位，我们直接在<code>idapython</code>里写一句脚本便出来了</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join([chr(<span style="color:#ae81ff">0x41</span><span style="color:#f92672">+</span>(int(i[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>:],<span style="color:#ae81ff">16</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0x41</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">26</span>) <span style="color:#66d9ef">if</span> int(i[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>:],<span style="color:#ae81ff">16</span>)<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0x61</span> <span style="color:#66d9ef">else</span> chr(<span style="color:#ae81ff">0x61</span><span style="color:#f92672">+</span>(int(i[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>:],<span style="color:#ae81ff">16</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0x61</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">26</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">&#34;f010..&#34;</span>,get_bytes(<span style="color:#ae81ff">0x100001984</span>,<span style="color:#ae81ff">3000</span>)<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;hex&#34;</span>))])
+</span></span></code></pre></div><h4 id="翻译字节码脚本">
+  翻译字节码脚本
+  <a class="anchor" href="#%e7%bf%bb%e8%af%91%e5%ad%97%e8%8a%82%e7%a0%81%e8%84%9a%e6%9c%ac">#</a>
+</h4>
+<p>当然也可以写个脚本把整个虚拟机字节码全部翻译出来
+首先可以用<code>get_bytes(0x100001984,3000,0).encode(&quot;hex&quot;)</code>把虚拟机字节码给提取出来，也可以用<code>lazyida</code>插件
+然后解析代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
+</span></span><span style="display:flex;"><span>loc_100001980<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;f01066000000f8f230f6c1f01063000000f8f231f6b6f0106a000000f8f232f6abf0106a000000f8f233f6a0f0106d000000f8f234f695f01057000000f8f235f68af0106d000000f8f236f67ff01073000000f8f237f674f01045000000f8f238f669f0106d000000f8f239f65ef01072000000f8f23af653f01052000000f8f23bf648f01066000000f8f23cf63df01063000000f8f23df632f01044000000f8f23ef627f0106a000000f8f23ff61cf01079000000f8f240f611f01065000000f8f241f606f701000000f3f700000000f35dc30f1f840000000000554889e548897df8488b7df88b078945f4488b7df88b47048945f08b45f43345f0488b7df88907488b7df8488b4f184883c10148894f185dc30f1f8000000000554889e548897df8488b7df88b078945f4488b7df8488b7f180fb64701488b3d942400004863c84801cf48897de88b45f4488b4de80fbe1139d00f8510000000488b45f8c7401001000000e90b000000488b45f8c7401000000000488b45f8488b48184883c102488948185dc30f1f00554889e548897df8488b7df8488b7f188a47018845f7488b7df8837f10000f851b0000000fb645f7488b4df8488b51184863f04801f248895118e90b000000488b45f8c7401000000000488b45f8488b48184883c102488948185dc30f1f4000554889e548897df85dc3660f1f440000554889e54088f88845fe8975f831c088c10fbe45fe83f841884df70f8c0d0000000fbe45fe83f85a0f9ec1884df78a45f7a8010f8505000000e929000000b81a0000000fbe4dfe83e941034df88945f089c8998b4df0f7f983c2414088d6408875ffe965000000e90000000031c088c10fbe45fe83f861884def0f8c0d0000000fbe45fe83f87a0f9ec1884def8a45efa8010f8505000000e929000000b81a0000000fbe4dfe83e961034df88945e889c8998b4de8f7f983c2614088d6408875ffe9060000008a45fe8845ff0fbe45ff5dc366666666662e0f1f840000000000554889e54883ec10be0200000048897df8488b7df88b0788c1884df70fbe7df7e8fbfeffff0fbef0488b55f88932488b55f84c8b42184983c0014c8942184883c4105dc36666662e0f1f840000000000554889e548897df8488b7df88b078945f4488b7df88b47048945f08b45f40345f0488b7df88907488b7df8488b4f184883c10148894f185dc30f1f8000000000554889e548897df8488b7df88b078945f4488b7df88b47048945f08b45f42b45f0488b7df88907488b7df8488b4f184883c10148894f185dc30f1f8000000000554889e548897df8488b7df8488b7f184883c70148897df0488b7df08b07488b7df88987b0000000488b7df8488b4f184883c10548894f185dc3660f1f440000554889e548897df8488b7df8488b7f1848ffc748897df0488b7df8488b7f184883c70248897de8488b7df00fb60783c0f089c783e80448897de08945dc0f8773000000488d057e000000488b4de0486314884801c2ffe2488b45e88b08488b45f88908e94e000000488b45e88b08488b45f8894804e93c000000488b45e88b08488b45f8894808e92a000000488b45e88b08488b45f889480ce918000000488b0543210000488b4de84863090fbe1408488b45f88910488b45f8488b48184883c106488948185dc38fffffffa0ffffffb2ffffffc4ffffffd6ffffff0f1f4000554889e54883ec2048897df8c745f400000000c745f00000000031c088c1837df400884def0f850a000000837df0090f9cc08845ef8a45efa8010f8505000000e963000000488b45f8488b40180fb608488b45f84883c020486355f048c1e2044801d00fb63039f10f852c000000c745f401000000488b45f84883c02048634df048c1e1044801c8488b4008488b4df84889cfffd0e9090000008b45f083c0018945f0e972ffffff4883c4205dc36690554889e54883ec10488d0571faffff4883c00448897df8488b7df848894718488b45f8488b40180fb60881f9f30000000f840e000000488b7df8e811ffffffe9dbffffff488b3d0d200000e880020000488b7df88b87b00000004883c4105dc3554889e54157415641554154534883ec18b80004000089c1488d15e1fcffff4c8d05aafdffff4c8d0d83fbffff4c8d15dcfbffff4c8d1d55fdffff488d1d0efdffff4c8d35f7faffff4c8d3db0faffff4c8d25b9fdffff48897dd0488975c8488b75d0c70600000000488b75d0c7460400000000488b75d0c7460800000000488b75d0c7460c00000000488b75d0c7461000000000488b75d0c786b000000000000000488b75d0c64620f0488b75d04c896628488b75d0c64630f1488b75d04c897e38488b75d0c64640f2488b75d04c897648488b75d0c64650f4488b75d048895e58488b75d0c64660f5488b75d04c895e68488b75d0c64670f3488b75d04c895678488b75d0c68680000000f6488b75d04c898e88000000488b75d0c68690000000f7488b75d04c898698000000488b75d0c686a0000000f8488b75d0488996a80000004889cfe82901000041bd120000004489ea48c7c1ffffffff488905941e0000488b058d1e00004883c030488b75c84889c7e8ef000000488945c04883c4185b415c415d415e415f5dc39090554889e54883ec20488d45e848897df8488975f048c745e8000000004889c74889d6e8ef00000031c989ce488d45e84889c7e8df0000004883c4205dc30f1f00554889e54883ec20488d45e848897df8488975f048c745e8000000004889c74889d6e8af00000031c989ce488d45e84889c7e89f00000041b001410fbec04883c4205dc36666662e0f1f840000000000554889e54883ec20488d45e848897df8488975f048c745e8000000004889c74889d6e85f00000031c989ce488d45e84889c7e84f0000004883c4205dc3ffff255c0e0000ff255e0e0000ff25600e0000ff25620e0000ff25640e0000ff25660e0000ff25680e0000ff256a0e0000ff256c0e0000ff256e0e0000ff25700e0000ff25720e0000ff25740e0000ff25760e0000ff25780e00004c8d1de90d00004153ff25d90d0000906819000000e9e6ffffff6862000000e9dcffffff6885000000e9d2ffffff689d000000e9c8ffffff68ba000000e9beffffff68d4000000e9b4ffffff68f2000000e9aaffffff681c010000e9a0ffffff6835010000e996ffffff684c010000e98cffffff6826000000e982ffffff683a000000e978ffffff6846000000e96effffff6854000000e964ffffff6800000000e95affffff766965774469644c6f616400736574526570726573656e7465644f626a6563743a0070776400737472696e6756616c7565006861735072656669783a006c656e67746800737562737472696e6746726f6d496e6465783a006973457175616c546f537472696e673a00737562737472696e675769746852616e67653a0055544638537472696e67006f6e4661696c6564006f6e5375636365737300616c6c6f6300696e697400736574416c6572745374796c653a00616464427574746f6e576974685469746c653a007365744d657373616765546578743a00736574496e666f726d6174697665546578743a007368617265644170706c69636174696f6e006b657957696e646f7700626567696e53686565744d6f64616c466f7257696e646f773a636f6d706c6574696f6e48616e646c65723a00636865636b436f64653a002e6378785f6465737472756374007365745077643a005f707764006973457175616c3a00636c6173730073656c6600706572666f726d53656c6563746f723a00706572666f726d53656c6563746f723a776974684f626a6563743a00706572666f726d53656c6563746f723a776974684f626a6563743a776974684f626a6563743a00697350726f78790069734b696e644f66436c6173733a0069734d656d6265724f66436c6173733a00636f6e666f726d73546f50726f746f636f6c3a00726573706f6e6473546f53656c6563746f723a0072657461696e0072656c65617365006175746f72656c656173650072657461696e436f756e74007a6f6e650068617368007375706572636c617373006465736372697074696f6e0064656275674465736372697074696f6e006170706c69636174696f6e53686f756c6454&#34;</span>
+</span></span><span style="display:flex;"><span>loc_100001980<span style="color:#f92672">=</span>re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">&#34;..&#34;</span>,loc_100001980)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#print(loc_100001980)</span>
+</span></span><span style="display:flex;"><span>a<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>c<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f0&#34;</span>,<span style="color:#ae81ff">6</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;mov r&#34;</span><span style="color:#f92672">+</span>x[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,0x&#34;</span><span style="color:#f92672">+</span>x[<span style="color:#ae81ff">2</span>])],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f1&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;xor r10,r11&#34;</span>)],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f2&#34;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;cmp r10,byte ptr ss:[0x&#34;</span><span style="color:#f92672">+</span>x[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;]&#34;</span>)],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f3&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#66d9ef">lambda</span> x:<span style="color:#e6db74">&#34;nop&#34;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f4&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;add r10,r11&#34;</span>)],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f5&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;sub r10,r11&#34;</span>)],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f6&#34;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;jz &#34;</span><span style="color:#f92672">+</span>x[<span style="color:#ae81ff">1</span>])],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f7&#34;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;mov buf,imm&#34;</span>)],
+</span></span><span style="display:flex;"><span>    [<span style="color:#e6db74">&#34;f8&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#66d9ef">lambda</span> x:str(<span style="color:#e6db74">&#34;caesar encode r10,2&#34;</span>)]
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> c:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(loc_100001980[a] <span style="color:#f92672">in</span> i):
+</span></span><span style="display:flex;"><span>            print(i[<span style="color:#ae81ff">2</span>](loc_100001980[a:a<span style="color:#f92672">+</span>i[<span style="color:#ae81ff">1</span>]]))
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">#print(loc_100001980[a:a+i[1]])</span>
+</span></span><span style="display:flex;"><span>            a<span style="color:#f92672">+=</span>i[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span></code></pre></div><p>运行后效果如下，极大的增强了可读性</p>
+<pre tabindex="0"><code>mov r10,0x66
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x30]
+jz c1
+mov r10,0x63
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x31]
+jz b6
+mov r10,0x6a
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x32]
+jz ab
+mov r10,0x6a
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x33]
+jz a0
+mov r10,0x6d
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x34]
+jz 95
+mov r10,0x57
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x35]
+jz 8a
+mov r10,0x6d
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x36]
+jz 7f
+mov r10,0x73
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x37]
+jz 74
+mov r10,0x45
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x38]
+jz 69
+mov r10,0x6d
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x39]
+jz 5e
+mov r10,0x72
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x3a]
+jz 53
+mov r10,0x52
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x3b]
+jz 48
+mov r10,0x66
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x3c]
+jz 3d
+mov r10,0x63
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x3d]
+jz 32
+mov r10,0x44
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x3e]
+jz 27
+mov r10,0x6a
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x3f]
+jz 1c
+mov r10,0x79
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x40]
+jz 11
+mov r10,0x65
+caesar encode r10,2
+cmp r10,byte ptr ss:[0x41]
+jz 06
+mov buff,imm
+nop
+mov buff,imm
+nop
+</code></pre><h2 id="obfuscating-macros">
+  Obfuscating macros
+  <a class="anchor" href="#obfuscating-macros">#</a>
+</h2>
+<p><code>ubuntu64 + gdbserver + ida64</code>调试环境</p>
+<p>首先<code>main</code>函数里关键的函数只有两个，一个<code>sub_4069D6</code>一个<code>sub_4013E6</code>，先跟进第一个函数，在所有传入我们输入的变量的地方下断点
+然后配置好远程<code>gdb</code>调试器，<code>f9</code>运行起来，随手输入<code>ABCD</code>，<code>ida</code>中触发断点，首先先观察寄存器的值，在堆栈中找到我们输入的字符串
+<img src="1.png" alt="" />
+然后一路<code>f9</code>观察对我们输入的字符串做了什么
+<code>f9</code>几次后会发现他把我们输入的<code>ABCD</code>转换成了<code>0xABCD</code>
+<img src="2.png" alt="" />
+继而我们推测下一个函数会对<code>0xABCD</code>进一步处理或者与一些值进行比较，于是删除所有其他的断点，在<code>0xABCD</code>处下内存读写断点，然后<code>f9</code>运行，就触发了硬件断点
+<img src="3.png" alt="" />
+第一次<code>test al,al</code>是检测输入是否为空，再按<code>f9</code>触发第二次断点，会发现如下代码</p>
+<pre tabindex="0"><code>.text:0000000000405FA3 loc_405FA3:
+.text:0000000000405FA3 mov     rax, [rbp+var_220]
+.text:0000000000405FAA lea     rdx, [rax+1]
+.text:0000000000405FAE mov     [rbp+var_220], rdx
+.text:0000000000405FB5 movzx   edx, byte ptr [rax]
+.text:0000000000405FB8 mov     rax, [rbp+var_210]
+.text:0000000000405FBF movzx   eax, byte ptr [rax]
+.text:0000000000405FC2 mov     ecx, eax
+.text:0000000000405FC4 mov     eax, edx
+.text:0000000000405FC6 sub     ecx, eax
+.text:0000000000405FC8 mov     eax, ecx
+.text:0000000000405FCA mov     edx, eax
+.text:0000000000405FCC mov     rax, [rbp+var_210]
+.text:0000000000405FD3 mov     [rax], dl
+.text:0000000000405FD5 mov     rax, [rbp+var_280]
+.text:0000000000405FDC test    rax, rax
+.text:0000000000405FDF jnz     short loc_
+</code></pre><p><code>f8</code>到<code>0000000000405FC6</code>处会发现他拿我们的<code>0xAB</code>与一个<code>0x79</code>进行了对比，这样的话我们只需要在<code>sub</code>这里下一个断点，一路<code>f9</code>就好了
+他一开始没有验证长度，直接进行了对比，只要对比到不同就退出，因为我们输入了<code>ABCD</code>，观察到他对比一次就会退出了
+这样我们就可以每次多输入两个字符，并且这两个字符只能是<code>0</code>到<code>9</code>和<code>A</code>到<code>F</code>，然后取出新的对比的字符再多输入两个字符直到他不在对比就得到<code>flag</code>了</p>
+<p>这道题目还是说，如果没有先调试得到的知识背景，用<code>pintool</code>解题也会卡壳的，因为经过我们的分析，发现第一个函数把字符串<code>ABCD</code>转换成了<code>0xABCD</code>，这里四个字节变成了两个字节，如果用<code>pintool</code>解题需要两个字符两个字符得组合得测试，这个题目不是纯正的<code>ollvm</code>混淆的，大体的思路把所有的涉及到用户输入的地方都下断点，还有就是内存断点的使用，还是很好用的。</p>
+<h2 id="题目附件">
+  题目附件
+  <a class="anchor" href="#%e9%a2%98%e7%9b%ae%e9%99%84%e4%bb%b6">#</a>
+</h2>
+<p>链接：https://pan.baidu.com/s/1yx9RlgITi5rjcHGBgZ1DDA
+提取码：ql9p</p>
+<h2 id="参考链接">
+  参考链接
+  <a class="anchor" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5">#</a>
+</h2>
+<p><a href="https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=860237&amp;page=1">https://www.52pojie.cn/forum.php?mod=viewthread&tid=860237&page=1</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#confused">Confused</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#obfuscating-macros">Obfuscating macros</a></li>
+    <li><a href="#题目附件">题目附件</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
