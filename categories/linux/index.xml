@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on OrganGrinderrr</title>
-    <link>https://example.org/categories/linux/</link>
+    <link>http://localhost:1313/categories/linux/</link>
     <description>Recent content in Linux on OrganGrinderrr</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Archlinux Customization Full Guide</title>
-      <link>https://example.org/posts/archlinux-setup/</link>
+      <title>My Dotfiles</title>
+      <link>http://localhost:1313/posts/asampledotfiles/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://example.org/posts/archlinux-setup/</guid>
-      <description>archlinux minimal installation # grab image file from arch boot website proceed to mirror config ctrl + c and cat /etc/pacman.d/mirrorlist select your nearest node, eg http://uk.mirror.archlinuxarm.org/$arch/$repo partitioning, go with default scheme install package fully automatic install boot loader setup users and package manager # add user to sudoer change hostname ln -s /usr/bin/nvim /usr/bin/vi install yay from source install hyprland or sway # yay -S hyprland-git UTM have to switch to gl hardware configure hyprland, resolution,scale and refresh rate install login manager tui-greet # systemctl enable greetd configure /etc/greetd/config.</description>
+      <guid>http://localhost:1313/posts/asampledotfiles/</guid>
+      <description>Linux distros # Ubuntu, Archlinux, Gentoo, NixOS, Qubes OS, Tails Personally I would kill Qubes and Tails already, rather than chosing a distro designed for a single purpose, I would rather chose a general purpose. As everything in qubes can be implemented in other general purpose systems.&#xA;Using Qubes and tails in my humble opinion not doing you any good as it shouts out that you are special, or more than special.</description>
     </item>
   </channel>
 </rss>

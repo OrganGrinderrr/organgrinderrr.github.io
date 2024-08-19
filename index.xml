@@ -2,39 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Introduction on OrganGrinderrr</title>
-    <link>https://example.org/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content in Introduction on OrganGrinderrr</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://example.org/docs/about/</link>
+      <link>http://localhost:1313/docs/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://example.org/docs/about/</guid>
+      <guid>http://localhost:1313/docs/about/</guid>
       <description>About # nohello.net # This is the webpage of an unknown SOC analyst&#xA;You can reach me by email OrganGrinderrr@proton.me&#xA;Find me on Github</description>
     </item>
     <item>
-      <title>Archlinux Customization Full Guide</title>
-      <link>https://example.org/posts/archlinux-setup/</link>
+      <title>A New Personality That Would Fight Back</title>
+      <link>http://localhost:1313/posts/a-sample-story/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://example.org/posts/archlinux-setup/</guid>
-      <description>archlinux minimal installation # grab image file from arch boot website proceed to mirror config ctrl + c and cat /etc/pacman.d/mirrorlist select your nearest node, eg http://uk.mirror.archlinuxarm.org/$arch/$repo partitioning, go with default scheme install package fully automatic install boot loader setup users and package manager # add user to sudoer change hostname ln -s /usr/bin/nvim /usr/bin/vi install yay from source install hyprland or sway # yay -S hyprland-git UTM have to switch to gl hardware configure hyprland, resolution,scale and refresh rate install login manager tui-greet # systemctl enable greetd configure /etc/greetd/config.</description>
-    </item>
-    <item>
-      <title>Lovely Cameron</title>
-      <link>https://example.org/posts/fiction-1/</link>
-      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://example.org/posts/fiction-1/</guid>
+      <guid>http://localhost:1313/posts/a-sample-story/</guid>
       <description>Chapter 1: The Havoc family # Hugo was born and raised in a poor village. He has a psychotic family line, spanning across multiple generations. His whole childhood was full of crap. His parents would get into a fight every other day. Always felt like this family was a wrecking ship, at risk of sinking with each wave crashing fight. Despite his best efforts of screaming and yelling for help, nobody ever answered back.</description>
     </item>
     <item>
-      <title>Install Nethunter on Oneplus 8T</title>
-      <link>https://example.org/posts/oneplus8t-crdroid-nethuner/</link>
-      <pubDate>Mon, 17 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://example.org/posts/oneplus8t-crdroid-nethuner/</guid>
-      <description>Step 1. Download prerequsitions. # CrDroid-8.7-kebab-ROM&#xA;payload-dumper-go&#xA;Nethunter-crdroid-overlay&#xA;Nethunter-crdroid-kernel&#xA;Magisk&#xA;TWRP-recovery&#xA;Step 2. Flash crdroid rom # Reboot into fastboot and exec the following command.&#xA;unzip crDroidAndroid-12.1-20220728-kebab-v8.7.zip tar xzvf payload-dumper-go*.tar.gz chmod +x ./payload-dumper-go* ./payload-dumper-go* payload.bin cd extracted_*_* ls -1 *.img | sed s/.img//g | xargs -I {} fastboot flash {} {}.img If you encounter some error, you might need to disable oem lock by&#xA;fastboot oem unlock And if there are errors about not enough disk space left, you should delete some partitions.</description>
+      <title>My Dotfiles</title>
+      <link>http://localhost:1313/posts/asampledotfiles/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/asampledotfiles/</guid>
+      <description>Linux distros # Ubuntu, Archlinux, Gentoo, NixOS, Qubes OS, Tails Personally I would kill Qubes and Tails already, rather than chosing a distro designed for a single purpose, I would rather chose a general purpose. As everything in qubes can be implemented in other general purpose systems.&#xA;Using Qubes and tails in my humble opinion not doing you any good as it shouts out that you are special, or more than special.</description>
     </item>
   </channel>
 </rss>
