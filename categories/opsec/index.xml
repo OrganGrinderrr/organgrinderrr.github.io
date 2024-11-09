@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Privacy on OrganGrinderrr</title>
-    <link>https://example.org/tags/privacy/</link>
-    <description>Recent content in Privacy on OrganGrinderrr</description>
+    <title>Opsec on OrganGrinderrr</title>
+    <link>https://example.org/categories/opsec/</link>
+    <description>Recent content in Opsec on OrganGrinderrr</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.org/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/categories/opsec/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ultimate Guide to Privacy</title>
       <link>https://example.org/posts/ultimate-guide-to-privacy/</link>

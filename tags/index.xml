@@ -2,52 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on OrganGrinderrr</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://example.org/tags/</link>
     <description>Recent content in Tags on OrganGrinderrr</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Archlinux</title>
-      <link>http://localhost:1313/tags/archlinux/</link>
+      <link>https://example.org/tags/archlinux/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/archlinux/</guid>
+      <guid>https://example.org/tags/archlinux/</guid>
       <description></description>
     </item>
     <item>
       <title>Distros</title>
-      <link>http://localhost:1313/tags/distros/</link>
+      <link>https://example.org/tags/distros/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/distros/</guid>
+      <guid>https://example.org/tags/distros/</guid>
       <description></description>
     </item>
     <item>
       <title>Drama</title>
-      <link>http://localhost:1313/tags/drama/</link>
+      <link>https://example.org/tags/drama/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/drama/</guid>
+      <guid>https://example.org/tags/drama/</guid>
       <description></description>
     </item>
     <item>
       <title>Minimalism</title>
-      <link>http://localhost:1313/tags/minimalism/</link>
+      <link>https://example.org/tags/minimalism/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/minimalism/</guid>
+      <guid>https://example.org/tags/minimalism/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Opsec</title>
+      <link>https://example.org/tags/opsec/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/opsec/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Privacy</title>
+      <link>https://example.org/tags/privacy/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>https://example.org/tags/privacy/</guid>
       <description></description>
     </item>
     <item>
       <title>Story</title>
-      <link>http://localhost:1313/tags/story/</link>
+      <link>https://example.org/tags/story/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/story/</guid>
+      <guid>https://example.org/tags/story/</guid>
       <description></description>
     </item>
     <item>
       <title>Windows Manager</title>
-      <link>http://localhost:1313/tags/windows-manager/</link>
+      <link>https://example.org/tags/windows-manager/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/windows-manager/</guid>
+      <guid>https://example.org/tags/windows-manager/</guid>
       <description></description>
     </item>
   </channel>

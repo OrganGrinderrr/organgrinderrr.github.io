@@ -2,25 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Opsec on OrganGrinderrr</title>
-    <link>http://localhost:1313/tags/opsec/</link>
+    <link>https://example.org/tags/opsec/</link>
     <description>Recent content in Opsec on OrganGrinderrr</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/opsec/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/tags/opsec/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Archlinux Customization Full Guide</title>
-      <link>http://localhost:1313/posts/my-dotfiles/</link>
+      <title>Ultimate Guide to Privacy</title>
+      <link>https://example.org/posts/ultimate-guide-to-privacy/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/my-dotfiles/</guid>
-      <description>archlinux minimal installation # grab image file nmctl connect to internet archinstall luks, no need for greeter setup users and package manager # pacman -S base-devel git git clone https://aur.archlinux.org/yay.git makepkg -si install hyprland or sway # yay -S hyprland sway swayidle swaylock wmenu librewolf-bin nerd-fonts zsh wl-clipboard grim artem wireguard-tools mpv neovim fastfetch btop slurp dmenu-wl brightnessctl hyprlock nvchad oh-my-zsh wl-recorder gdb gcc btop ranger libvirt optional: wofi, ripgrep jq mat2 rofi imv feh httpie wf-recorder wofi dmenu-wl wmenu replace swaybar with waybar # yay -S waybar comment out your current swaybar in your sway config and add this line &amp;ldquo;bar swaybar_command waybar&amp;rdquo; # install login manager tui-greet and screenlock swaylock # systemctl enable greetd configure /etc/greetd/config.</description>
-    </item>
-    <item>
-      <title>Meine Katze</title>
-      <link>http://localhost:1313/posts/meine-katze/</link>
-      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/meine-katze/</guid>
-      <description></description>
+      <guid>https://example.org/posts/ultimate-guide-to-privacy/</guid>
+      <description> # </description>
     </item>
   </channel>
 </rss>

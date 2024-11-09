@@ -2,18 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on OrganGrinderrr</title>
-    <link>http://localhost:1313/categories/linux/</link>
+    <link>https://example.org/categories/linux/</link>
     <description>Recent content in Linux on OrganGrinderrr</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My Dotfiles</title>
-      <link>http://localhost:1313/posts/asampledotfiles/</link>
+      <title>A Sample Archlinux Dotfiles for Hackers</title>
+      <link>https://example.org/posts/a-sample-dotfiles/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/asampledotfiles/</guid>
-      <description>Linux distros # Ubuntu, Archlinux, Gentoo, NixOS, Qubes OS, Tails Personally I would kill Qubes and Tails already, rather than chosing a distro designed for a single purpose, I would rather chose a general purpose. As everything in qubes can be implemented in other general purpose systems.&#xA;Using Qubes and tails in my humble opinion not doing you any good as it shouts out that you are special, or more than special.</description>
+      <guid>https://example.org/posts/a-sample-dotfiles/</guid>
+      <description>A little bit opinion on Linux distros # Ubuntu, Archlinux, Gentoo, NixOS, Qubes OS, Tails Personally I would kill Qubes and Tails already, rather than chosing a distro designed for a single purpose, I would rather chose a general purpose. As everything in qubes can be implemented in other general purpose systems. Qubes and Tails are not alien technologies.&#xA;Using Qubes and tails in my humble opinion not doing you any good as it shouts out that you are special, or more than special.</description>
+    </item>
+    <item>
+      <title>Some Rambling I</title>
+      <link>https://example.org/posts/some-rambling-1728944813/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>https://example.org/posts/some-rambling-1728944813/</guid>
+      <description>When someone write on their profile saying, they are a chaos lover, they listen to minor music. their tastes are really special. and that&amp;rsquo;s what makes them special. I dispite them. Not bcuz I&amp;rsquo;m really the one who is special. but bcuz Sometimes they just stuck in their poor logic.&#xA;when you heard people say, why they always judge without knowing. I ask them, do you know what&amp;rsquo;s even worse? judge with knowing, or real judgement, that include judge in action, not only just saying it.</description>
     </item>
   </channel>
 </rss>
