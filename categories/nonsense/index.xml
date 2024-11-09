@@ -9,25 +9,11 @@
     <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://example.org/categories/nonsense/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>A Money Heist</title>
-      <link>https://example.org/posts/a-sample-story3/</link>
-      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://example.org/posts/a-sample-story3/</guid>
-      <description>What is perfect money heist, an operation that is stealth. no one even notice that they&amp;rsquo;ve been robbed.</description>
-    </item>
-    <item>
       <title>A New Personality That Would Fight Back</title>
       <link>https://example.org/posts/a-sample-story/</link>
       <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
       <guid>https://example.org/posts/a-sample-story/</guid>
       <description>Chapter 1: The Havoc family # Hugo was born and raised in a poor village. He has a psychotic family line, spanning across multiple generations. His whole childhood was full of crap. His parents would get into a fight every other day. Always felt like this family was a wrecking ship, at risk of sinking with each wave crashing fight. Despite his best efforts of screaming and yelling for help, nobody ever answered back.</description>
-    </item>
-    <item>
-      <title>Brain Tumor</title>
-      <link>https://example.org/posts/a-sample-story2/</link>
-      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://example.org/posts/a-sample-story2/</guid>
-      <description>My name is Shawn. Nearly 4 months ago, I became very slient, usually I talk more, not as laqucious but people notces my existence. This change of personality is all because of a brain Tumor.&#xA;Doctor says half a year, tops, I will be gone. Hard to accept the truth, even now. worked all my life to get to this point, that is really tragic, my son just got a new born baby.</description>
     </item>
   </channel>
 </rss>

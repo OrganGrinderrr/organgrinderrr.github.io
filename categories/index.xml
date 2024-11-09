@@ -22,12 +22,5 @@
       <guid>https://example.org/categories/nonsense/</guid>
       <description></description>
     </item>
-    <item>
-      <title>Opsec</title>
-      <link>https://example.org/categories/opsec/</link>
-      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://example.org/categories/opsec/</guid>
-      <description></description>
-    </item>
   </channel>
 </rss>

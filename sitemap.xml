@@ -4,9 +4,6 @@
   <url>
     <loc>https://example.org/docs/about/</loc>
   </url><url>
-    <loc>https://example.org/posts/a-sample-story3/</loc>
-    <lastmod>2024-06-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://example.org/posts/a-sample-story/</loc>
     <lastmod>2024-06-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -17,9 +14,6 @@
     <lastmod>2024-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.org/posts/</loc>
-    <lastmod>2024-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://example.org/posts/a-sample-story2/</loc>
     <lastmod>2024-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.org/categories/</loc>
@@ -43,25 +37,10 @@
     <loc>https://example.org/categories/nonsense/</loc>
     <lastmod>2024-06-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/opsec/</loc>
-    <lastmod>2024-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://example.org/categories/opsec/</loc>
-    <lastmod>2024-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://example.org/tags/privacy/</loc>
-    <lastmod>2024-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://example.org/posts/some-rambling-1728944813/</loc>
-    <lastmod>2024-06-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://example.org/tags/story/</loc>
     <lastmod>2024-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.org/tags/</loc>
-    <lastmod>2024-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://example.org/posts/ultimate-guide-to-privacy/</loc>
     <lastmod>2024-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.org/tags/windows-manager/</loc>
